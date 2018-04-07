@@ -11,13 +11,16 @@ from random import shuffle
 
 test = ['Javier', 'Mateo', 'Leonardo', 'Oswal', 'Cesar', 'Ivan', 'Domicilio de Dominos']
 asistentes = []
-
+winners = []
 def winner(data):
     shuffle(data)
-    return data.pop()
+    w = data.pop()
+    winners.append(w)
+    return w
 
 def exit_app(signal,frame):
-    print("\nFelicitaciones a todos los Ganadores\n\n")
+    w = "\n".join(winners)
+    print("\nFelicitaciones a todos los Ganadores\n{}".format(w))
     sys.exit(0)
 
 signal.signal(signal.SIGINT, exit_app)
