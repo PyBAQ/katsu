@@ -27,7 +27,7 @@ def cvsReader(filename:str) -> list:
 
      
 participants = cvsReader('participants')
-reward = cvsReader('reward')
+premios = cvsReader('reward')
 
 winners = []
 def winner(data:list) -> str:
@@ -40,6 +40,17 @@ def winner(data:list) -> str:
     except IndexError:
         os.kill(os.getpid(), signal.SIGINT)
 
+rewards = []
+def reward(data:list) -> str:
+    try:
+        shuffle(data)
+        r = data.pop()
+        r = '{}'.format(r.reward)
+        rewards.append(r)
+        return r 
+    except IndexError:
+        os.kill(os.getpid(), signal.SIGINT)
+
 def exit_app(signal,frame):
     w = "\n".join(winners)
     print("\nFelicitaciones a todos los Ganadores\n{}".format(w))
@@ -47,5 +58,8 @@ def exit_app(signal,frame):
 
 signal.signal(signal.SIGINT, exit_app)
 while True:
+    input("El premios es ....")
+    print(reward(premios))
     input("El Ganador es ....")
     print(winner(participants))
+    print("\n\n")
