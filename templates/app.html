@@ -1,0 +1,16 @@
+
+<h2>Python Barranquilla</h2>
+
+<h2>Reward</h2>
+
+<form action = "http://localhost:8000/uploader" method = "POST" 
+    enctype = "multipart/form-data">
+    <input type = "file" name = "file" />
+    <input type = "submit" value="Upload"/>
+</form>
+
+<ul>
+    {% for r in rewards %}
+        <li>{{ r }}</li>
+    {% endfor %}
+</ul>
