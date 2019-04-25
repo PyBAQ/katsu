@@ -15,8 +15,10 @@ import csv
 import signal
 import sys
 import os 
+import random
 from collections import namedtuple
 from random import shuffle
+
 
 # load csv files
 def cvsReader(filename:str) -> list:    
@@ -30,6 +32,7 @@ participants = cvsReader('participants')
 reward = cvsReader('reward')
 
 winners = []
+
 def winner(data:list) -> str:
     try:
         shuffle(data)
@@ -40,12 +43,25 @@ def winner(data:list) -> str:
     except IndexError:
         os.kill(os.getpid(), signal.SIGINT)
 
+def get_reward(data:list) -> str:
+    try:
+        shuffle(data)
+        w = random.choice(data)
+        w = '{}'.format(w.premio)
+        return w 
+    except IndexError:
+        os.kill(os.getpid(), signal.SIGINT)
+
 def exit_app(signal,frame):
     w = "\n".join(winners)
     print("\nFelicitaciones a todos los Ganadores\n{}".format(w))
     sys.exit(0)
 
 signal.signal(signal.SIGINT, exit_app)
-while True:
+
+n = int(input("Numero de iteraciones: "))
+for x in range(0,n):
     input("El Ganador es ....")
-    print(winner(participants))
+    print(winner(participants) + " [PREMIO:"+ get_reward(reward) +"]")
+w = "\n".join(winners)
+print("\nFelicitaciones a todos los Ganadores\n{}".format(w))
