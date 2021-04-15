@@ -4,12 +4,6 @@
 # Copyright:   MIT
 #---------------------------------------------
 
-'''
-PUNTOS PENDIENTES 
-Los premios deben poderse cargar de un .csv (Los premios varían en cada meetup)
-Los premios deben ser escogidos al azar de un listado
-Un premio al azar se asigna al ganador (Se obtiene un premio al azar del listado de premios y se asigna a un ganador al azar. El resultado debe imprimirse por consola)
-'''
 
 import csv
 import signal
@@ -47,30 +41,33 @@ def get_reward(data:list) -> str:
     try:
         shuffle(data)
         w = random.choice(data)
-        w = '{}'.format(w.premio)
+        w = '{}'.format(w.item)
         remove_reward(w)
         return w 
     except IndexError:
         os.kill(os.getpid(), signal.SIGINT)
 
 def exit_app(signal,frame):
+    '''
+    Exit the loop with Ctrl-C
+    '''
     w = "\n".join(winners)
-    print("\nFelicitaciones a todos los Ganadores\n{}".format(w))
+    print("\nFelicitaciones a las personas Ganadoras\n{}".format(w))
     sys.exit(0)
 
 def remove_reward(r):
     for reward_object in reward:
-        if(reward_object.premio == r):
+        if(reward_object.item == r):
             reward.remove(reward_object)
 
 signal.signal(signal.SIGINT, exit_app)
 
-n = int(input("Numero de iteraciones: "))
-if(n <= len(reward)):    
-    for x in range(0,n):
-        input("El Ganador es ....")
-        print(winner(participants) + " [ PREMIO: "+ get_reward(reward) +" ]")
-    w = "\n".join(winners)
-    print("\nFelicitaciones a todos los Ganadores\n{}".format(w))
-else:
-    print("La cantidad de regalos no satisface la cantidad de participantes")
+
+  
+for x in range(0, len(reward)):
+    input("El premio es para ....")
+    print(winner(participants) + " [ PREMIO: "+ get_reward(reward) +" ]")
+
+w = "\n".join(winners)
+
+print("\nFelicitaciones a las personas Ganadoras\n{}".format(w))
