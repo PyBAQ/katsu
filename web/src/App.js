@@ -1,7 +1,16 @@
 import React from "react";
+import { SetupForm } from "./components/form";
+
+const Container = ({ children }) => (
+  <div className="container mt-4"> {children} </div>
+);
 
 function App() {
-  return <h1> Katsu </h1>;
+  return (
+    <Container>
+      <SetupForm />
+    </Container>
+  );
 }
 
 export default App;
