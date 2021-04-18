@@ -17,7 +17,6 @@ const Participant = ({ data }) => {
   if (edit) {
     return (
       <input
-        className="form-control"
         type="text"
         name="name"
         value={name}
@@ -26,20 +25,18 @@ const Participant = ({ data }) => {
       />
     );
   }
-  return <div onDoubleClick={handler}>{`${data.name} ${data?.lastname} `}</div>;
+  return <div onDoubleClick={handler}>{name}</div>;
 };
 
 const Participants = () => {
   const items = useSelector(getParticipants);
   return (
     <div className="">
-      <ul>
-        {items.map((item) => (
-          <li key={item.id}>
-            <Participant data={item} />
-          </li>
-        ))}
-      </ul>
+      {items.map((item) => (
+        <div key={item.id}>
+          <Participant data={item} />
+        </div>
+      ))}
     </div>
   );
 };

@@ -18,15 +18,15 @@ const redux = createSlice({
   initialState,
   reducers: {
     inserOne(state, { payload }) {
-      state.list.push(payload);
+      state.list.data.push(payload);
     },
     deleteOne(state, { payload }) {
-      const idx = state.list.findIndex((item) => item.id === payload);
-      state.list.splice(idx, 1);
+      const idx = state.list.data.findIndex((item) => item.id === payload);
+      state.list.data.splice(idx, 1);
     },
     updateOne(state, { payload }) {
-      const idx = state.list.findIndex((item) => item.id === payload.id);
-      state.list.splice(idx, 0, payload);
+      const idx = state.list.data.findIndex((item) => item.id === payload.id);
+      state.list.data.splice(idx, 0, payload);
     },
   },
   extraReducers: {
