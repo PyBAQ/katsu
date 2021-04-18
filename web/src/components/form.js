@@ -32,13 +32,13 @@ export const SetupForm = () => {
   };
   return (
     <form onSubmit={onSubmitHandler}>
-      <div class="row g-3 align-items-center">
-        <div class="col-auto">
-          <label class="col-form-label">Participantes</label>
+      <div className="row g-3 align-items-center">
+        <div className="col-auto">
+          <label className="col-form-label">Participantes</label>
         </div>
-        <div class="col-auto">
+        <div className="col-auto">
           <input
-            class="form-control"
+            className="form-control"
             type="file"
             name="participants"
             accept=".csv"
@@ -46,12 +46,12 @@ export const SetupForm = () => {
           />
         </div>
 
-        <div class="col-auto">
-          <label class="col-form-label">Premios</label>
+        <div className="col-auto">
+          <label className="col-form-label">Premios</label>
         </div>
-        <div class="col-auto">
+        <div className="col-auto">
           <input
-            class="form-control"
+            className="form-control"
             type="file"
             name="rewards"
             accept=".csv"
@@ -61,8 +61,8 @@ export const SetupForm = () => {
       </div>
 
       <div className="row mt-4 d-flex justify-content-end">
-        <div class="col-auto" style={{ marginRight: "26px" }}>
-          <button type="submit" class="btn btn-primary">
+        <div className="col-auto" style={{ marginRight: "26px" }}>
+          <button type="submit" className="btn btn-primary">
             Submit
           </button>
         </div>

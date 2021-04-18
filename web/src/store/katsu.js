@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import http from "../helpers/http";
 
-// First, create the thunk
 export const uploadFile = createAsyncThunk(
   "katsu/uploadFile",
   async (payload, thunkAPI) => {
@@ -10,16 +9,10 @@ export const uploadFile = createAsyncThunk(
   }
 );
 
-// Then, handle actions in your reducers:
-const katsuSlice = createSlice({
+const redux = createSlice({
   name: "katsu",
   initialState: {},
   reducers: {},
-  extraReducers: {
-    [uploadFile.fulfilled]: () => {
-      console.debug("here");
-    },
-  },
 });
 
-export default katsuSlice.reducers;
+export default redux.reducer;

@@ -1,4 +1,13 @@
+import { createSelector } from "reselect";
 import { createSlice } from "@reduxjs/toolkit";
+import { uploadFile } from "./katsu";
+
+const root = (state) => state.participants;
+export const getRootList = createSelector(root, (state) => state.list);
+export const getParticipants = createSelector(
+  getRootList,
+  (state) => state.data
+);
 
 const initialState = {
   list: {
@@ -23,7 +32,14 @@ const redux = createSlice({
       state.list.splice(idx, 0, payload);
     },
   },
+  extraReducers: {
+    [uploadFile.fulfilled]: (state, { payload }) => {
+      const { data } = payload;
+      const { participants } = data || {};
+      state.list.data = participants;
+    },
+  },
 });
 
-export const { increment, decrement, incrementByAmount } = redux.actions;
+export const { inserOne, deleteOne, updateOne } = redux.actions;
 export default redux.reducer;
