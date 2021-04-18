@@ -1,8 +1,13 @@
 import os
+import csv
+import uuid
 import webbrowser
 from threading import Timer
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from collections import namedtuple
+
+from flask_cors import CORS
 
 KATSU_ENV = os.environ.get('KATSU_ENV')
 
@@ -19,6 +24,29 @@ app = Flask(
     static_folder=STATIC_FOLDER,
     template_folder=TEMPLATE_FOLDER,
 )
+
+CORS(app)
+
+
+def serializer(data, many=False):
+    if many:
+        data_dict = [dict(d._asdict()) for d in data]
+    else:
+        data_dict = dict(data._asdict())
+    return data_dict
+
+
+def get_value(row):
+    data = row.split(',')
+    data.append(uuid.uuid4())
+    return data
+
+
+def cvsReader(filename, name):
+    reader = iter(filename.read().decode('utf-8').split())
+    subclass = namedtuple(name, next(reader))
+    subclass = namedtuple(name, subclass._fields + ('id', ))
+    return [subclass(*get_value(row)) for row in reader]
 
 
 @app.route('/', defaults={'path': ''})
@@ -37,6 +65,32 @@ def participants():
 @app.route('/api/rewards/')
 def rewards():
     return 'TBD'
+
+
+@app.route('/api/upload/', methods=['POST'])
+def upload():
+
+    if len(request.files) != 2:
+        print('if 1')
+        return '', 400
+
+    if 'participants' not in request.files.keys():
+        return '', 400
+
+    if 'rewards' not in request.files.keys():
+        return '', 400
+
+    participants = request.files['participants']
+    rewards = request.files['rewards']
+
+    participants = cvsReader(participants, 'participants')
+    rewards = cvsReader(rewards, 'rewards')
+    return {
+        'data': {
+            'participants': serializer(participants, many=True),
+            'rewards': serializer(rewards, many=True)
+        }
+    }, 200
 
 
 def open_browser():

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { uploadFile } from "../store/katsu";
 
 export const SetupForm = () => {
+  const dispatch = useDispatch();
   const [participants, setParticipants] = useState("");
   const [rewards, setRewards] = useState("");
   const onchangeHandler = (data) => {
@@ -21,7 +24,11 @@ export const SetupForm = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.debug({ participants, rewards });
+    const formData = new FormData();
+    formData.append("participants", participants, participants.name);
+    formData.append("rewards", rewards, rewards.name);
+
+    dispatch(uploadFile(formData));
   };
   return (
     <form onSubmit={onSubmitHandler}>
