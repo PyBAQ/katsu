@@ -12,6 +12,11 @@ import os
 import random
 from collections import namedtuple
 from random import shuffle
+import pygame
+pygame.mixer.init()
+
+tambores_sound = "redoble-tambores.mp3"  
+pygame.mixer.music.load(tambores_sound)
 
 
 # load csv files
@@ -65,7 +70,9 @@ signal.signal(signal.SIGINT, exit_app)
 
   
 for x in range(0, len(reward)):
+    pygame.mixer.music.play() 
     input("El premio es para ....")
+    
     print(winner(participants) + " [ PREMIO: "+ get_reward(reward) +" ]")
 
 w = "\n".join(winners)
