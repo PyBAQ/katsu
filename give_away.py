@@ -62,12 +62,15 @@ def remove_reward(r):
 
 signal.signal(signal.SIGINT, exit_app)
 
+def main()->None:
+    for x in range(0, len(reward)):
+        input("El premio es para ....")
+        print(winner(participants) + " [ PREMIO: "+ get_reward(reward) +" ]")
+    
+    w = "\n".join(winners)
+    
+    print("\nFelicitaciones a las personas Ganadoras\n{}".format(w))
 
-  
-for x in range(0, len(reward)):
-    input("El premio es para ....")
-    print(winner(participants) + " [ PREMIO: "+ get_reward(reward) +" ]")
 
-w = "\n".join(winners)
-
-print("\nFelicitaciones a las personas Ganadoras\n{}".format(w))
+if __name__ == '__main__':
+    main()
